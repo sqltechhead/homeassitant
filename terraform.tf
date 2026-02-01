@@ -21,7 +21,7 @@ resource "docker_container" "homeassistant" {
 
   restart      = "unless-stopped"
   network_mode = "host"
-
+  privileged = true
   volumes {
     host_path      = "/home/pi/homeassistant/config"
     container_path = "/config"
