@@ -33,6 +33,12 @@ resource "docker_container" "homeassistant" {
     read_only      = true
   }
 
+  volumes {
+    host_path      = "/run/dbus"
+    container_path = "/run/dbus"
+    read_only      = true
+  }
+
   env = [
     "TZ=Europe/London"
   ]

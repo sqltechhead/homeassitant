@@ -25,31 +25,32 @@ sudo apt install unzip
 ```bash
 tfenv install
 ```
-
-* Install Docker requirements
+* Set default version
 ```bash
-# Add Docker's official GPG key:
-sudo apt-get update
-sudo apt-get install ca-certificates curl
-sudo install -m 0755 -d /etc/apt/keyrings
-sudo curl -fsSL https://download.docker.com/linux/raspbian/gpg -o /etc/apt/keyrings/docker.asc
-sudo chmod a+r /etc/apt/keyrings/docker.asc
-
-# Add the repository to Apt sources:
-echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/raspbian \
-  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
-  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-sudo apt-get update
+tfenv use 1.14.4
 ```
+
 * Install Docker
 ```bash
-sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+```
+
+* Set docker permissions
+```bash
+sudo usermod -aG docker $USER
+newgrp docker
 ```
 
 * Create associated directories
 ```bash
-mkdir -p /home/pi/nodered/data
+sudo mkdir -p /home/pi/nodered/data
 sudo chown -R 1000:1000 /home/pi/nodered/data
-chmod -R u+rwX /home/pi/nodered/data
+sudo chmod -R u+rwX /home/pi/nodered/data
+```
+* Install Hacs
+```bash
+mkdir -p /home/pi/homeassistant/config/custom_components/hacs
+wget https://github.com/hacs/integration/releases/latest/download/hacs.zip
+unzip hacs.zip -d /home/pi/homeassistant/config/custom_components/hacs
 ```
