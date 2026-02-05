@@ -54,3 +54,18 @@ mkdir -p /home/pi/homeassistant/config/custom_components/hacs
 wget https://github.com/hacs/integration/releases/latest/download/hacs.zip
 unzip hacs.zip -d /home/pi/homeassistant/config/custom_components/hacs
 ```
+*  Get bluetooth working inside docker
+```bash
+sudo systemctl edit bluetooth.service
+```
+* Add the following
+```bash
+[Service]
+ExecStart=
+ExecStart=/usr/libexec/bluetooth/bluetoothd --experimental
+```
+* Restart the bluetooth service
+```bash
+sudo systemctl daemon-reload
+sudo systemctl restart bluetooth
+```
